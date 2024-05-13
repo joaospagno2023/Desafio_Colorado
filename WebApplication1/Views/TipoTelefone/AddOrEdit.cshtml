@@ -1,0 +1,45 @@
+﻿@model Server.Entities.DesafioColorado.TipoTelefoneViewModel
+
+@{ Layout = null; }
+
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="AddOrEdit" asp-route-id="@Model.CodigoTipoTelefone" onsubmit="return jQueryAjaxPost(this);">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CodigoTipoTelefone" />
+            <input type="hidden" asp-for="DataInsercao" />
+            <div class="form-group">
+                <label asp-for="CodigoTipoTelefone" class="control-label"></label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">#</div>
+                    </div>
+                    <input asp-for="CodigoTipoTelefone" class="form-control" />
+                </div>
+                <span asp-validation-for="CodigoTipoTelefone" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="DescricaoTelefone" class="control-label"></label>
+                        <input asp-for="DescricaoTelefone" class="form-control" />
+                        <span asp-validation-for="DescricaoTelefone" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="UsuarioInsercao" class="control-label"></label>
+                        <input asp-for="UsuarioInsercao" class="form-control" />
+                        <span asp-validation-for="UsuarioInsercao" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-6 offset-md-3">
+                    <input type="submit" value="Submit" class="btn btn-primary btn-block" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,85 @@
+﻿@model IEnumerable<Server.Entities.DesafioColorado.TelefoneViewModel>
+@{
+    ViewBag.Title = "Telefone";
+}
+
+
+<div id="view-all">
+    <div class="col-md-8 offset-md-2">
+
+        <h1 class="text-center"><i class="fas fa-comments-dollar text-success"></i> Cadastro de Telefone</h1>
+
+
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IdTelefone)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NumeroTelefone)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CodigoCliente)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DataInsercao)
+                    </th>
+                    <th>
+                        <a onclick="showInPopup('@Url.Action("AddOrEdit","Telefone",null,Context.Request.Scheme)','Novo Cadastro Cliente')" class="btn btn-success text-white"><i class="fas fa-random"></i> Novo Cadastro</a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdTelefone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NumeroTelefone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CodigoCliente)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DataInsercao)
+                        </td>
+                        <td>
+                            <div>
+                                <a onclick="showInPopup('@Url.Action("AddOrEdit","Telefone",new {id=item.IdTelefone},Context.Request.Scheme)','Atualização de Cliente')" class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i> Edit</a>
+                                <form asp-action="Delete" asp-route-id="@item.IdTelefone" onsubmit="return jQueryAjaxDelete(this)" class="d-inline">
+                                    <input type="hidden" asp-for="@item.IdTelefone" />
+                                    <input type="submit" value="Delete" class="btn btn-danger" />
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="form-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

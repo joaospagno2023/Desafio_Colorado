@@ -1,0 +1,85 @@
+﻿@model IEnumerable<Server.Entities.DesafioColorado.ClientesViewModel>
+@{
+    ViewBag.Title = "Cliente";
+}
+
+
+<div id="view-all">
+    <div class="col-md-8 offset-md-2">
+
+        <h1 class="text-center"><i class="fas fa-comments-dollar text-success"></i> Cadastro de Cliente</h1>
+
+
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CodigoCliente)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NomeFantasia)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UsuarioInsercao)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DataInsercao)
+                    </th>
+                    <th>
+                        <a onclick="showInPopup('@Url.Action("AddOrEdit","Cliente",null,Context.Request.Scheme)','Novo Cadastro Cliente')" class="btn btn-success text-white"><i class="fas fa-random"></i> Novo Cadastro</a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CodigoCliente)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NomeFantasia)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UsuarioInsercao)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DataInsercao)
+                        </td>
+                        <td>
+                            <div>
+                                <a onclick="showInPopup('@Url.Action("AddOrEdit","Cliente",new {id=item.CodigoCliente},Context.Request.Scheme)','Atualização de Cliente')" class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i> Edit</a>
+                                <form asp-action="Delete" asp-route-id="@item.CodigoCliente" onsubmit="return jQueryAjaxDelete(this)" class="d-inline">
+                                    <input type="hidden" asp-for="@item.CodigoCliente" />
+                                    <input type="submit" value="Delete" class="btn btn-danger" />
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="form-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
